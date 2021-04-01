@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         if user.update(user_params)
             redirect_to users_id_url(user)
         else
-            render json: user.errors.full_messages, status: :unporcessable_entity
+            render json: user.errors.full_messages, status: :unprocessable_entity
         end 
     end 
 
