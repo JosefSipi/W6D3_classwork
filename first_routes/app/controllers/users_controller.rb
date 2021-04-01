@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        render: json: user
+        render json: user
     end 
 
     def destroy
@@ -25,13 +25,16 @@ class UsersController < ApplicationController
 
     def update
         user = User.find(params[:id])
-        
+        if user.update(user_params)
+            redirect_to users_id_url(user)
+        else
+            render json: user.errors.full_messages, status: :unporcessable_entity
+        end 
     end 
 
     private
 
     def user_params
-        debugger
         params.require(:user).permit(:name, :email)
     end
 end 
