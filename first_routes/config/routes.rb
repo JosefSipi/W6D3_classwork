@@ -9,4 +9,9 @@ get "users/:id/edit", to: "users#edit", as: "user_edit"
 patch "users/:id", to: "users#update"
 put "users/:id", to: "users#update"
 delete "users/:id", to: "users#destroy"
+
+
+resources :artworks, only: [:index, :show, :create, :update, :destroy]
+
+
 end
