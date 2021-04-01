@@ -10,8 +10,10 @@ patch "users/:id", to: "users#update"
 put "users/:id", to: "users#update"
 delete "users/:id", to: "users#destroy"
 
+get "users/:user_id/artworks", to: "artworks#index"
 
 resources :artworks, only: [:index, :show, :create, :update, :destroy]
 
+resources :artwork_shares, only: [:create, :destroy, :index]
 
 end

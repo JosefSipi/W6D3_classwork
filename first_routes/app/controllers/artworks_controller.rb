@@ -1,10 +1,22 @@
 class ArtworksController < ApplicationController
 
-def index
-    artwork = Artwork.all
-    render json: artwork
+# def index
+#     artwork = Artwork.all
+#     render json: artwork
 
+# end
+
+def index
+    value = params[:user_id]
+    user_art = Artwork
+        .joins(:shares)
+        .where('artworks.artist_id = :value OR artwork_shares.viewer_id = :value', value: value)
+
+
+    render json: user_art
 end
+
+
 
 def show
     artwork = Artwork.find(params[:id])
@@ -31,7 +43,7 @@ def update
     if artwork.update(artwork_params)
         redirect_to artwork_url(artwork)
     else 
-        render json: artwork.errors.full_messages, status: :unprocessable_entity
+        render json: artwork.errors.full_messages, status: 422
     end 
 end 
 
@@ -41,7 +53,4 @@ private
     def artwork_params
         params.require(:artwork).permit(:title, :image_url, :artist_id)    
     end
-
-
-#edit
 end

@@ -28,14 +28,13 @@ class UsersController < ApplicationController
         if user.update(user_params)
             redirect_to users_id_url(user)
         else
-            render json: user.errors.full_messages, status: :unprocessable_entity
+            render json: user.errors.full_messages, status: 422
         end 
     end 
 
     private
 
     def user_params
-        # debugger
         params.require(:user).permit(:username, :email)
     end
 end 
